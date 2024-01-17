@@ -76,4 +76,4 @@ dotnet test path/to/WpfEssentialsTests.csproj
 
 ## License
 
-This project is licensed under the GPL-3.0 License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the GPL-3.0 License - see the [LICENSE](LICENSE.txt) file for details.
