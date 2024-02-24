@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfEssentials", "WpfEssenti
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfEssentialsTests", "WpfEssentialsTests\WpfEssentialsTests.csproj", "{03396FC9-1080-4F39-97B8-7FFDAEE37EAA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfWindowHandling", "WpfWindowHandling\WpfWindowHandling.csproj", "{477C75B8-2E8F-4C49-AEE9-4E18D1E05F3C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{03396FC9-1080-4F39-97B8-7FFDAEE37EAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03396FC9-1080-4F39-97B8-7FFDAEE37EAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03396FC9-1080-4F39-97B8-7FFDAEE37EAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{477C75B8-2E8F-4C49-AEE9-4E18D1E05F3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{477C75B8-2E8F-4C49-AEE9-4E18D1E05F3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{477C75B8-2E8F-4C49-AEE9-4E18D1E05F3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{477C75B8-2E8F-4C49-AEE9-4E18D1E05F3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

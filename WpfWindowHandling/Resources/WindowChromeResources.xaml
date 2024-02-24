@@ -1,0 +1,295 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                    xmlns:local="clr-namespace:WpfWindowHandling"
+                    xmlns:valueConverters="clr-namespace:WpfWindowHandling.ValueConverters">
+
+    <valueConverters:WindowStateToCornerRadiusConverter x:Key="WindowStateToCornerRadiusConverter" />
+
+    <!-- Window Shadow Effect -->
+    <DropShadowEffect x:Key="WindowShadowEffect"
+                      Color="Black"
+                      BlurRadius="10"
+                      Direction="315"
+                      ShadowDepth="1"
+                      Opacity=".7" />
+
+    <!--Inner Border Style-->
+    <Style TargetType="{x:Type Border}"
+           x:Key="InnerBorderStyle">
+
+        <Setter Property="Background"
+                Value="{DynamicResource MaterialDesignPaper}" />
+
+        <Setter Property="CornerRadius"
+                Value="{Binding WindowState, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource WindowStateToCornerRadiusConverter}}" />
+
+        <Setter Property="BorderBrush"
+                Value="{DynamicResource MaterialDesignDivider}" />
+
+        <Setter Property="BorderThickness"
+                Value="1" />
+
+        <Setter Property="Margin"
+                Value="10" />
+
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource TemplatedParent}}"
+                         Value="Maximized">
+
+                <Setter Property="BorderThickness"
+                        Value="0" />
+
+                <Setter Property="Margin"
+                        Value="0" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>    
+
+    <!--DockPanel Style-->
+    <Style TargetType="{x:Type DockPanel}"
+           x:Key="DockPanelStyle">
+
+        <Setter Property="Margin"
+                Value="0" />
+
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource TemplatedParent}}"
+                         Value="Maximized">
+
+                <Setter Property="Margin"
+                        Value="5 5 5 0" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Maximize, Restore, Minimize Buttons -->
+    <Style x:Key="WindowControlButtonStyle"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource MaterialDesignFlatButton}">
+
+        <Setter Property="BorderBrush"
+                Value="{Binding BorderBrush, RelativeSource={RelativeSource Self}}" />
+
+        <Setter Property="BorderThickness"
+                Value="0" />
+        
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome"
+                Value="True" />
+        
+        <Setter Property="IsTabStop"
+                Value="False" />
+        
+        <Setter Property="Padding"
+                Value="0" />
+        
+        <Setter Property="Height"
+                Value="32" />
+        
+        <Setter Property="Width"
+                Value="32" />
+
+        <Setter Property="Margin"
+                Value="0 0 4 0" />
+
+        <Setter Property="DockPanel.Dock"
+                Value="Right" />
+
+        <Setter Property="Foreground"
+                Value="{StaticResource MaterialDesignDarkForeground}" />
+
+        <Setter Property="Background"
+                Value="{StaticResource MaterialDesignDarkBackground}" />
+
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding DataContext.IsDarkTheme, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                         Value="False">
+
+                <Setter Property="Foreground"
+                        Value="{StaticResource MaterialDesignLightForeground}" />
+
+                <Setter Property="Background"
+                        Value="{StaticResource MaterialDesignLightBackground}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- PackIcon Style -->
+    <Style TargetType="materialDesign:PackIcon">        
+        <Setter Property="SnapsToDevicePixels"
+                Value="True" />
+    </Style>
+    
+    <!--Templates for Button Icons-->
+    <DataTemplate x:Key="WindowCloseIconTemplate">
+        <materialDesign:PackIcon Kind="WindowClose" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="WindowMaximizeIconTemplate">
+        <materialDesign:PackIcon Kind="WindowMaximize" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="WindowRestoreIconTemplate">
+        <materialDesign:PackIcon Kind="WindowRestore" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="WindowMinimizeIconTemplate">
+        <materialDesign:PackIcon Kind="WindowMinimize" />
+    </DataTemplate>
+
+    <!--Close Button Style-->
+    <Style TargetType="{x:Type Button}"
+           x:Key="CloseButtonStyle"
+           BasedOn="{StaticResource WindowControlButtonStyle}">
+
+        <Setter Property="Command"
+                Value="{Binding Path=DataContext.CloseWindowCommand, RelativeSource={RelativeSource TemplatedParent}}" />
+
+        <Setter Property="ToolTip"
+                Value="Close" />
+
+        <Setter Property="Margin"
+                Value="0" />
+
+        <Setter Property="ContentTemplate"
+                Value="{StaticResource WindowCloseIconTemplate}" />
+    </Style>
+
+    <!--Maximize Button Style-->
+    <Style TargetType="{x:Type Button}"
+           x:Key="MaximizeButtonStyle"
+           BasedOn="{StaticResource WindowControlButtonStyle}">
+
+        <Setter Property="Command"
+                Value="{Binding Path=DataContext.MaximizeWindowCommand, RelativeSource={RelativeSource TemplatedParent}}" />
+
+        <Setter Property="ToolTip"
+                Value="Maximize" />
+
+        <Setter Property="ContentTemplate"
+                Value="{StaticResource WindowMaximizeIconTemplate}" />
+
+        <Setter Property="Visibility"
+                Value="Visible" />
+
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource TemplatedParent}}"
+                         Value="Maximized">
+
+                <Setter Property="Visibility"
+                        Value="Collapsed" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--Restore Button Style-->
+    <Style TargetType="{x:Type Button}"
+           x:Key="RestoreButtonStyle"
+           BasedOn="{StaticResource WindowControlButtonStyle}">
+
+        <Setter Property="Command"
+                Value="{Binding Path=DataContext.RestoreWindowCommand, RelativeSource={RelativeSource TemplatedParent}}" />
+
+        <Setter Property="ToolTip"
+                Value="Restore" />
+
+        <Setter Property="ContentTemplate"
+                Value="{StaticResource WindowRestoreIconTemplate}" />
+
+        <Setter Property="Visibility"
+                Value="Collapsed" />
+
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding WindowState, RelativeSource={RelativeSource TemplatedParent}}"
+                         Value="Maximized">
+
+                <Setter Property="Visibility"
+                        Value="Visible" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--Minimize Button Style-->
+    <Style TargetType="{x:Type Button}"
+           x:Key="MinimizeButtonStyle"
+           BasedOn="{StaticResource WindowControlButtonStyle}">
+
+        <Setter Property="Command"
+                Value="{Binding Path=DataContext.MinimizeWindowCommand, RelativeSource={RelativeSource TemplatedParent}}" />
+
+        <Setter Property="ToolTip"
+                Value="Minimize" />
+
+        <Setter Property="ContentTemplate"
+                Value="{StaticResource WindowMinimizeIconTemplate}" />
+    </Style>
+
+    <!-- Window Style -->
+    <Style x:Key="MaterialDesignWindowChrome"
+           TargetType="{x:Type Window}">
+        
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome ResizeBorderThickness="10"
+                              CaptionHeight="32"
+                              GlassFrameThickness="1"
+                              UseAeroCaptionButtons="False" />
+            </Setter.Value>
+        </Setter>
+
+        <Setter Property="AllowsTransparency"
+                Value="True" />
+
+        <Setter Property="WindowStyle"
+                Value="None" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Window}">
+                    <Border Effect="{StaticResource WindowShadowEffect}">
+                        <Border Style="{StaticResource InnerBorderStyle}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <!-- Window Header -->
+                                <Grid Grid.Row="0">
+                                    <DockPanel Style="{StaticResource DockPanelStyle}">
+
+                                        <!-- Window Control Buttons -->
+                                        <Button x:Name="PART_CloseButton"
+                                                Style="{StaticResource CloseButtonStyle}" />
+
+                                        <Button x:Name="PART_MaximizeButton"
+                                                Style="{StaticResource MaximizeButtonStyle}" />
+
+                                        <Button x:Name="PART_RestoreButton"
+                                                Style="{StaticResource RestoreButtonStyle}" />
+
+                                        <Button x:Name="PART_MinimizeButton"
+                                                Style="{StaticResource MinimizeButtonStyle}" />
+
+                                        <!-- Title -->
+                                        <TextBlock x:Name="PART_Title"
+                                                   Text="{TemplateBinding Title}"
+                                                   Foreground="{TemplateBinding Foreground}"
+                                                   FontFamily="{StaticResource MaterialDesignFont}"
+                                                   FontWeight="Light"
+                                                   FontSize="12"
+                                                   VerticalAlignment="Center"
+                                                   Margin="10 0 0 0" />
+                                    </DockPanel>
+                                </Grid>
+
+                                <!-- Main Content -->
+                                <ContentPresenter Grid.Row="1" />
+                            </Grid>
+                        </Border>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
