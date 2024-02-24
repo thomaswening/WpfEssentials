@@ -5,25 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-using Microsoft.Extensions.DependencyInjection;
-
 using WpfWindowHandling.ViewModels;
 
 namespace WpfWindowHandling.Services
 {
-    public class WindowService(IServiceProvider serviceProvider) : IWindowService
+    public class WindowService() : IWindowService
     {
 
         private const string DarkThemeUri = "pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml";
         private const string LightThemeUri = "pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml";
-
-        private readonly IServiceProvider _serviceProvider = serviceProvider;
-
-        public virtual void OpenNewWindow<T>() where T : Window 
-        {
-            var window = _serviceProvider.GetService<T>() ?? throw new InvalidOperationException($"Could not resolve {typeof(T)}.");
-            window.Show();
-        }
 
         public virtual void Minimize(Window window)
         {

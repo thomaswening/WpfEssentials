@@ -15,12 +15,6 @@ namespace WpfWindowHandling.Services
     public interface IWindowService
     {
         /// <summary>
-        /// Opens a new window.
-        /// </summary>
-        /// <typeparam name="T">Type of window to open.</typeparam>
-        void OpenNewWindow<T>() where T : Window;
-
-        /// <summary>
         /// Minimizes the window.
         /// </summary>
         /// <param name="window">Window to minimize.</param>
